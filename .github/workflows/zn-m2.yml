@@ -28,7 +28,6 @@ env:
   DIY_P2_SH: ./scripts/zn-m2/diy-part2.sh
   DIY_P3_SH: ./scripts/zn-m2/diy-part3.sh
   UPLOAD_BIN_DIR: false
-  UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
 
@@ -162,7 +161,7 @@ jobs:
       run: |
         echo "release_tag=ZN-M2-GecoosAc-$(date +"%Y.%m.%d-%H%M")" >> $GITHUB_OUTPUT
         touch release.txt
-        echo "ZN-M2 firmware 集成集客AC控制器V1" >> release.txt
+        echo "ZN-M2 firmware 集成集客AC控制器 V1" >> release.txt
         grep luci-app-passwall ${{ env.FIRMWARE }}/openwrt-ipq60xx-generic-device-zn-m2.manifest | awk -F" - " '{print "Passwall " "`"$2"`"}' >> release.txt
         grep xray-core ${{ env.FIRMWARE }}/openwrt-ipq60xx-generic-device-zn-m2.manifest | awk -F" - " '{print $2}'| awk -F"-" '{print "Xray " "`"$1"`"}' >> release.txt
         grep sing-box ${{ env.FIRMWARE }}/openwrt-ipq60xx-generic-device-zn-m2.manifest | awk -F" - " '{print $2}'| awk -F"-" '{print "Sing-Box " "`"$1"`"}' >> release.txt
@@ -187,12 +186,9 @@ jobs:
          ${{ env.FIRMWARE }}/*.bin
          ${{ env.FIRMWARE }}/*.manifest
 
-    - name: Delete releases 和 workflows runs
+    - name: Delete releases and workflows runs
       uses: ophub/delete-releases-workflows@main
       with:
-        delete_releases: true
-        prerelease_option: true
-        releases_keep_latest: 3
         delete_workflows: true
         workflows_keep_day: 3
         gh_token: ${{ secrets.GITHUB_TOKEN }}

@@ -12,5 +12,3 @@
 #优先安装 passwall 源
 ./scripts/feeds install -a -f -p passwall_packages
 ./scripts/feeds install -a -f -p passwall_luci
-
-git clone -b v1.0  https://github.com/lwb1978/openwrt-gecoosac package/openwrt-gecoosac
